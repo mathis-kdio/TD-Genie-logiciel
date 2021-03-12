@@ -20,6 +20,5 @@ def main():
     except Error as e:
         admin_vue.error_message(str(e))
 
-
 if __name__ == "__main__":
     main()
