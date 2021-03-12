@@ -28,9 +28,9 @@ class MemberVue:
 
     def show_member(self, member: dict):
         print("Member profile: ")
-        print(member['firstname'].capitalize(), member['lastname'].capitalize())
-        print("email:", member['email'])
-        print("type:", member['type'])
+        print(member.firstname.capitalize(), member.lastname.capitalize())
+        print("email:", member.email)
+        print("type:", member.type)
 
     def error_message(self, message: str):
         print("/!\\ %s" % message.upper())
@@ -41,13 +41,12 @@ class MemberVue:
     def show_members(self):
 
         members = self._member_controller.list_members()
-
         print("Members: ")
         for member in members:
-            print("* %s %s (%s) - %s" % (   member['firstname'].capitalize(),
-                                            member['lastname'].capitalize(),
-                                            member['email'],
-                                            member['type']))
+            print("* %s %s (%s) - %s" % (   member.firstname.capitalize(),
+                                            member.lastname.capitalize(),
+                                            member.email,
+                                            member.type))
 
     def search_member(self):
         firstname = self._common.ask_name('firstname')
@@ -60,14 +59,14 @@ class MemberVue:
         data = {}
         print("Update Member")
         print()
-        data['firstname'] = self._common.ask_name(key_name="firstname", default=member['firstname'])
-        data['lastname'] = self._common.ask_name(key_name="lastname", default=member['lastname'])
-        data['email'] = self._common.ask_email(default=member['email'])
-        data['type'] = self._common.ask_type(default=member['type'])
+        data['firstname'] = self._common.ask_name(key_name="firstname", default=member.firstname)
+        data['lastname'] = self._common.ask_name(key_name="lastname", default=member.lastname)
+        data['email'] = self._common.ask_email(default=member.email)
+        data['type'] = self._common.ask_type(default=member.type)
         print()
-        return self._member_controller.update_member(member['id'], data)
+        return self._member_controller.update_member(member.id, data)
 
     def delete_member(self):
         member = self.search_member()
-        self._member_controller.delete_member(member['id'])
+        self._member_controller.delete_member(member.id)
         self.succes_message()

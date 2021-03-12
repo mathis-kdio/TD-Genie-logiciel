@@ -18,11 +18,14 @@ class Member(Base):
     def __repr__(self):
         return "<Member(%s %s %s)>" % (self.firstname, self.lastname.upper(), self.type)
 
+    def __init__(self, id, firstname, lastname, email, typeMembre):
+        #Si on ne créer pas
+        if (id != -1):
+            self.id = id
+        self.firstname = firstname
+        self.lastname = lastname
+        self.email = email
+        self.type = typeMembre
+
     def to_dict(self):
-        return {
-            "id": self.id,
-            "firstname": self.firstname,
-            "lastname": self.lastname,
-            "email": self.email,
-            "type": self.type
-        }
+        return Member(self.id, self.firstname, self.lastname, self.email, self.type)

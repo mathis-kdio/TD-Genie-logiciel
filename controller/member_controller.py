@@ -3,7 +3,6 @@ import re
 from model.dao.member_dao import MemberDAO
 from exceptions import Error, InvalidData
 
-
 class MemberController:
     """
     Member actions
