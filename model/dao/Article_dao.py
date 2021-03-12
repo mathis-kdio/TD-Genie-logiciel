@@ -36,22 +36,24 @@ class ArticleDAO(DAO):
 
     def create(self, data: dict):
         try:
-            member = Article(-1, data.get('name'), data.get('price'))
+            article = Article(-1, data.get('name'), data.get('price'))
             self._database_session.add(Article)
             self._database_session.flush()
         except IntegrityError:
             raise Error("Article already exists")
-        return member
+        return article
 
-    def update(self, member: Article, data: dict):
+    def update(self, article: Article, data: dict):
         if 'name' in data:
-            member.firstname = data['name']
+            article.name = data['name']
         if 'price' in data:
-            member.lastname = data['price']
-
-            self._database_session.merge(Article)
+            article.price = data['price']
+        try:
+            self._database_session.merge(article)
             self._database_session.flush()
-        
+        except IntegrityError:
+            raise Error("Error data may be malformed")
+        return article
 
     def delete(self, entity):
         try:
